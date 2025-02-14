@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+   <link rel="stylesheet" href="styles.css">
+  <title>Login do Aluno</title>
+</head>
+<style>
+    /* Estiliza o corpo da página */
+    body {
+        font-family: "Chakra Petch", sans-serif; /* Define a fonte padrão */
+        background-color: #020520; /* Cor de fundo da página */
+        display: flex; /* Usa Flexbox para layout */
+        flex-direction: column; /* Alinha os itens na vertical */
+        align-items: center; /* Centraliza os itens horizontalmente */
+        justify-content: center; /* Centraliza os itens verticalmente */
+        height: 100vh; /* Preenche a altura total da viewport */
+        margin: 0; /* Remove a margem padrão */
+        padding: 0; /* Remove o padding padrão */
+    }   
+    
+    p {
+        color: #ffffff;
+    }
+    
+    /* Estiliza os títulos h1 */
+    h3 {
+        font-size: 50px; /* Tamanho da fonte */
+        color: #ffffff; /* Cor do texto */
+        text-align: center; /* Alinha o texto ao centro */
+        letter-spacing: 3px; /* Espaçamento entre letras */
+    }
+    
+    h2 {
+        color: #ffffff;
+    }
+    
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: -46px;
+        margin-left: 20px;
+        width: 130px;
+    }
+    
+    .google-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 700px;
+    margin-left: 850px;
+    width: 30px;
+}
+
+header {
+        position: absolute;
+        top: 0px;
+        margin-bottom: 1rem;
+        background-color: #ffffff;
+        width: 1358px;
+        height: 75px;
+    }
+
+/* Estiliza as seções da página */
+section {
+    display: flex; /* Usa Flexbox para layout */
+    flex-direction: column; /* Alinha os itens na vertical */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    margin-bottom: 3rem; /* Espaçamento abaixo de cada seção */
+}
+
+/* Estiliza os inputs dentro das seções */
+section input {
+    width: 30rem; /* Largura dos inputs */
+    height: 50px;
+    border: none; /* Remove a borda padrão */
+    padding: 1rem; /* Espaçamento interno */
+    border-radius: 1.5rem; /* Borda arredondada */
+    margin-bottom: 1rem; /* Espaçamento abaixo dos inputs */
+    color: #202cdd; /* Cor do texto */
+    font-size: 1rem; /* Tamanho da fonte */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+.picture__input{
+    width: 30rem; /* Largura dos inputs */
+    border: none; /* Remove a borda padrão */
+    padding: 1rem; /* Espaçamento interno */
+    border-radius: 1.5rem; /* Borda arredondada */  
+    margin-bottom: 1rem; /* Espaçamento abaixo dos inputs */
+    color: #09368f; /* Cor do texto */
+    font-size: 1rem; /* Tamanho da fonte */
+    box-sizing: border-box; /* Inclui padding e border na largura total */
+}
+
+
+/* Estiliza os botões dentro das seções */
+button {
+    padding: 0.8rem 1.2rem; /* Espaçamento interno do botão */
+    border: none; /* Remove a borda padrão */
+    border-radius: 1.5rem; /* Borda arredondada */
+    background-color: #033073; /* Cor de fundo do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    font-size: 1rem; /* Tamanho da fonte */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}
+
+/* Adiciona efeito hover ao botão de pesquisa */
+button:hover {
+    background-color: #30475E; /* Muda a cor de fundo ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais intensa */
+}
+
+/* Estiliza a caixa de resultados da pesquisa */
+.resultados-pesquisa {
+    width: 60rem; /* Largura máxima da caixa de resultados */
+    height: 46vh; /* Altura máxima da caixa de resultados */
+    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+    margin-top: 1rem; /* Espaçamento acima da caixa de resultados */
+    padding: 1rem; /* Espaçamento interno */
+    border-radius: 0.6rem; /* Borda arredondada */
+}
+
+/* Estiliza cada item de resultado */
+.item-resultado {
+    background: #020520; /* Cor de fundo dos itens */
+    border-radius: 0.6rem; /* Borda arredondada */
+    padding: 1rem; /* Espaçamento interno */
+    margin-bottom: 1rem; /* Espaçamento abaixo dos itens */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Estiliza os títulos dentro dos itens de resultado */
+.item-resultado h2 {
+    font-size: 1.5rem; /* Tamanho da fonte */
+    color: #ffffff; /* Cor do texto */
+}
+
+/* Estiliza os links dentro dos itens de resultado */
+.item-resultado a {
+    text-decoration: none; /* Remove o sublinhado padrão dos links */
+    color: #033073; /* Cor do texto dos links */
+}
+
+/* Estiliza os links quando são passados o mouse sobre */
+.item-resultado a:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+/* Estiliza a descrição meta dentro dos itens de resultado */
+.descricao-meta {
+    color: #45474B; /* Cor do texto */
+    margin: 0.5rem 0; /* Margem acima e abaixo */
+}
+
+/* Estiliza o rodapé da página */
+footer {
+    background-color: #020520; /* Cor de fundo do rodapé */
+    color: #45474B; /* Cor do texto */
+    text-align: center; /* Alinha o texto ao centro */
+    padding: 0; /* Espaçamento interno */
+    width: 100%; /* Largura total da página */
+    position: absolute; /* Posiciona o rodapé */
+    bottom: 0; /* Alinha ao fundo da página */
+    font-size: 1rem; /* Tamanho da fonte */
+}
+
+div {
+    margin-left: 860px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    h3 {
+        font-size: 2rem; /* Tamanho da fonte em telas menores */
+        letter-spacing: 0.2rem; /* Espaçamento entre letras em telas menores */
+    }
+    .picture__input{
+        width: 25rem; /* Largura dos inputs em telas menores */
+        padding: 0.8rem; /* Espaçamento interno em telas menores */
+    }
+    
+    section input {
+        width: 25rem; /* Largura dos inputs em telas menores */
+        padding: 0.8rem; /* Espaçamento interno em telas menores */
+    }
+
+    .resultados-pesquisa {
+        width: 40rem; /* Largura da caixa de resultados em telas menores */
+        height: 40vh; /* Altura da caixa de resultados em telas menores */
+    }
+
+    .item-resultado h2 {
+        font-size: 1.3rem; /* Tamanho da fonte dos títulos em telas menores */
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+
+    h3 {
+        font-size: 1.8rem; /* Tamanho da fonte em telas pequenas */
+        letter-spacing: 0.1rem; /* Espaçamento entre letras em telas pequenas */
+    }
+    
+    section input {
+        width: 17rem; /* Largura total dos inputs em telas pequenas */
+        color: #033073;
+    }
+
+    button {
+        padding: 0.6rem 1rem; /* Espaçamento interno do botão em telas pequenas */
+        font-size: 0.9rem; /* Tamanho da fonte do botão em telas pequenas */
+    }
+    
+    .resultados-pesquisa {
+        width: 90%; /* Largura da caixa de resultados em telas pequenas */
+        height: 50vh; /* Altura da caixa de resultados em telas pequenas */
+    }
+
+    .item-resultado h2 {
+        font-size: 1.1rem; /* Tamanho da fonte dos títulos em telas pequenas */
+    }
+
+    footer {
+        font-size: 1px; /* Tamanho da fonte do rodapé em telas pequenas */
+    }
+
+}
+form{
+  width: 300px;
+  margin: 200px auto;
+  text-align: center;
+}
+input{
+  display: block;
+  margin: 10px auto;
+  width: 250px;
+  height: 30px;
+}
+
+</style>
+<body>
+  <header>
+    <div>
+    <a href="#">Saiba Como Ingressar</a>
+    <a href="#">Serviços</a>
+    <a href="#">Contatos</a>
+    </div>  
+  </header>
+  <section>
+  <forms>
+    <h3>Login do Aluno</h3>
+    <input type="text" placeholder="Login" id="login">
+    <input type="password" placeholder="Senha" id="senha">
+    <input type="submit" onclick="logar()">
+  </forms>
+  </section>
+  <footer>
+    <p>2025 - <strong>ETE Ginásio Pernambucano.</strong> Todos os Direitos Reservados. Entrem em contato pelo <a href="https://www.instagram.com/garra_inc_technology/">@garra_inc_technology</a></p>
+</footer>
+  <script>
+  
+  function logar(){
+    var login = document.getElementById('login').value;
+    var senha = document.getElementById('senha').value;
+    
+    if(login == "1-a-ds" && senha == "1@dsgp"){
+      location.href = "enviardocs_aluno";}
+    else if (login == "1-b-ds" && senha == "1Bdspg66"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "1-a-mm" && senha == "1@57793"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "1-b-mm" && senha == "1@744886"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "2-a-ds" && senha == "2@ds5504"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "2-b-ds" && senha == "2@5995"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "2-a-mm" && senha == "2$50220pt"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "2-b-mm" && senha == "tppd@667"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "3-a-ds" && senha == "68887991"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "3-b-ds" && senha == "477560668"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "3-a-mm" && senha == "49g0d6i"){
+      location.href = "enviardocs_aluno";}
+    else if(login == "3-b-mm" && senha == "9gg8rysj5u"){
+      location.href = "enviardocs_aluno";}
+    else{
+      alert('Usuario ou Senha incorretos');
+    }  
+  }
+  </script>
+</body>
+</html>
