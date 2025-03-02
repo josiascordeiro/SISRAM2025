@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        body {
+            background-color: #020520;
+        }
+
+        thead, tr, th, h1, p {
+            color: #ffffff;
+        }
+
+        table {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <p>Atestados Cadastrados no sistema</p>
+
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Data de Entrega</th>
+                <th>Data de Afastamento</th>
+                <th>Período</th>
+                <th>Motivo</th>
+                <th>Turma</th>
+                <th>Imagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% atestados2amm.forEach(function(atestados) { %>
+                <tr>
+                    <td><%= atestados.id %></td>
+                    <td><%= atestados.matricula %></td>
+                    <td><%= atestados.nome %></td>
+                    <td><%= new Date(atestados.data_entrega).toISOString().split('T')[0] %></td>
+                    <td><%= new Date(atestados.data_afastamento).toISOString().split('T')[0] %></td>
+                    <td><%= atestados.periodo %></td>
+                    <td><%= atestados.motivo %></td>
+                    <td><%= atestados.turma %></td>
+                    <td>
+                        <a href="/imagem/<%= atestados.id %>" target="_blank">
+                            <img src="/imagem/<%= atestados.id %>" alt="Atestado" style="width: 100px; height: auto;">
+                        </a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <button><a href="/serie_prof">Voltar</a></button>
+</body>
+</html>
