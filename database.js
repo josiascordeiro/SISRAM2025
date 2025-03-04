@@ -6,11 +6,19 @@ async function connect() {
     }
 
     try {
-        const connection = await mysql.createConnection({
+        // Add debug logging
+        console.log('MySQL Connection Config:', {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
-            password: process.env.MYSQL_PASSWORD,
             database: process.env.MYSQL_DATABASE
+        });
+
+        const connection = await mysql.createConnection({
+            host: process.env.MYSQL_HOST || 'gondola.proxy.rlwy.net',
+            user: process.env.MYSQL_USER || 'root',
+            password: process.env.MYSQL_PASSWORD,
+            database: process.env.MYSQL_DATABASE || 'railway',
+            port: process.env.MYSQL_PORT || 31428
         });
 
         console.log('Conectou no MySQL!');
@@ -20,7 +28,6 @@ async function connect() {
         connection.on('error', async (err) => {
             if (err.code === 'PROTOCOL_CONNECTION_LOST') {
                 console.error('Conexão perdida. Tentando reconectar...');
-                
                 global.connection = await connect();
             } else {
                 throw err;
