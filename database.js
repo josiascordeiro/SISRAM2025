@@ -7,12 +7,10 @@ async function connect() {
 
     try {
         const connection = await mysql.createConnection({
-            host: 'localhost',
-            port: 3306, // Porta do MySQL
-            user: 'root',
-            password: 'root',
-            database: 'sisram2',
-            connectTimeout: 10000 // Timeout em milissegundos
+            host: process.env.MYSQL_HOST,
+            user: process.env.MYSQL_USER,
+            password: process.env.MYSQL_PASSWORD,
+            database: process.env.MYSQL_DATABASE
         });
 
         console.log('Conectou no MySQL!');
