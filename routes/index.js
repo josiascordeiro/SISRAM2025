@@ -120,8 +120,13 @@ router.get('/3-a-ds', (req, res) => {
 });
 
 // Definindo uma rota GET para listar alunos do 3 ano B DS
+<<<<<<< HEAD
 router.get('/tresBds', (req, res) => {
   res.render('tresBds', { title: '/tresBds' });
+=======
+router.get('/3-b-ds', (req, res) => {
+  res.render('3-b-ds', { title: '/3-b-ds' });
+>>>>>>> e6b270bee5db1df9e606c88c60353804f6b5b7bf
 });
 
 // Definindo uma rota GET para listar alunos do 3 ano A MM
