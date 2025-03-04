@@ -1,12 +1,11 @@
 
 global.db = require('./database');
 var express = require('express');
-const appp = express();
+var app = express();
 const port = 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes/index');
-
 
 
 
@@ -18,7 +17,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var app = express();
+
 
 
 // view engine setup
