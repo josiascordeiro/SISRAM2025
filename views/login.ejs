@@ -51,27 +51,29 @@
   </footer>
 
   <!-- Authentication Scripts -->
-  <script>
-    // Google Sign-in function
-    function signInWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      
-      // Optional: Force account selection even when one account is available
-      provider.setCustomParameters({ prompt: 'select_account' });
-      
-      firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-          // User signed in successfully
-          const user = result.user;
-          console.log("Usuário logado:", user.email);
-          location.href = "enviardocs_aluno";
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error("Erro no login:", error);
-          alert("Erro ao fazer login com Google: " + error.message);
-        });
-    }
-  </script>
+    <!-- Authentication Scripts -->
+    <script>
+      // Google Sign-in function
+      function signInWithGoogle() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        
+        // Optional: Force account selection even when one account is available
+        provider.setCustomParameters({ prompt: 'select_account' });
+        
+        firebase.auth().signInWithPopup(provider)
+          .then((result) => {
+            // User signed in successfully
+            const user = result.user;
+            console.log("Usuário logado:", user.email);
+            // Updated to use the full Railway URL
+            window.location.href = "https://sisram2025-production.up.railway.app/enviardocs_aluno";
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Erro no login:", error);
+            alert("Erro ao fazer login com Google: " + error.message);
+          });
+      }
+    </script>
 </body>
 </html>
