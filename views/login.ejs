@@ -26,10 +26,107 @@
     firebase.initializeApp(firebaseConfig);
   </script>
 
+<style>
+*{
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+header{
+    background: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header a{
+    color: #040f6b;;
+    font-size: 1.5rem;
+    margin: 80px;
+}
+
+body{
+  background: #020520;
+}
+
+section h3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body .conten{
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.login-form h3{
+  font-size: 5rem;
+  color: white;
+}
+
+.login-form button{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5rem;
+  height: 60px;
+  width: 500px;
+  font-size: 2rem;
+  margin-top: 10rem;
+}
+
+.btn-logar{
+  display: flex;
+  justify-content: center;
+}
+
+.login-form img{
+  width: 2rem;
+  margin-right: 1rem;
+}
+
+.btn-voltar{
+  display: flex;
+  justify-content: center;
+}
+
+.btn-voltar button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5rem;
+  height: 60px;
+  width: 500px;
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 1.5rem;
+  text-align: center;
+  color: aliceblue;
+  padding: 15px;
+}
+
+</style>
+
 </head>
 <body>
   <header>
-    <img src="/images/logo.png" alt="Logo" class="logo">
     <div>
       <a href="#">Saiba Como Ingressar</a>
       <a href="#">Serviços</a>
@@ -37,44 +134,50 @@
     </div>
   </header>
 
-  <section>
-    <div class="login-form">
-      <h3>Login do Aluno</h3>
-      <!-- Google Sign-in button only -->
-      <button onclick="signInWithGoogle()" class="google-btn">
-        <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google Icon"> Login com Google
-      </button>
-    </div>
-  </section>
-
+  <div class="conten">
+    <section>
+      <div class="login-form">
+        <h3>Login do Aluno</h3>
+        <!-- Google Sign-in button only -->
+         <div class="btn-logar">
+          <button onclick="signInWithGoogle()" class="google-btn">
+            <img src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="Google Icon"> Login com Google
+          </button>
+         </div>
+      </div>
+      <div class="btn-voltar">
+        <button>Voltar</button>
+      </div>
+    </section>
+  
+    <!-- Authentication Scripts -->
+      <!-- Authentication Scripts -->
+      <script>
+        // Google Sign-in function
+        function signInWithGoogle() {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          
+          // Optional: Force account selection even when one account is available
+          provider.setCustomParameters({ prompt: 'select_account' });
+          
+          firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+              // User signed in successfully
+              const user = result.user;
+              console.log("Usuário logado:", user.email);
+              // Updated to use the full Railway URL
+              window.location.href = "https://sisram2025-production.up.railway.app/enviardocs_aluno";
+            })
+            .catch((error) => {
+              // Handle errors
+              console.error("Erro no login:", error);
+              alert("Erro ao fazer login com Google: " + error.message);
+            });
+        }
+      </script>
+  </div>
   <footer>
     <p>2025 - <strong>ETE Ginásio Pernambucano.</strong> Todos os Direitos Reservados. Entrem em contato pelo <a href="https://www.instagram.com/garra_inc_technology/">@garra_inc_technology</a></p>
   </footer>
-
-  <!-- Authentication Scripts -->
-    <!-- Authentication Scripts -->
-    <script>
-      // Google Sign-in function
-      function signInWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        
-        // Optional: Force account selection even when one account is available
-        provider.setCustomParameters({ prompt: 'select_account' });
-        
-        firebase.auth().signInWithPopup(provider)
-          .then((result) => {
-            // User signed in successfully
-            const user = result.user;
-            console.log("Usuário logado:", user.email);
-            // Updated to use the full Railway URL
-            window.location.href = "https://sisram2025-production.up.railway.app/enviardocs_aluno";
-          })
-          .catch((error) => {
-            // Handle errors
-            console.error("Erro no login:", error);
-            alert("Erro ao fazer login com Google: " + error.message);
-          });
-      }
-    </script>
 </body>
 </html>
