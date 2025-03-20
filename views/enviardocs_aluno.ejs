@@ -126,6 +126,26 @@
         padding: 15px;
     }
 
+    section .data{
+        border-radius: 0 50px 50px 50px;
+    }
+
+    section p{
+        background: white;
+        height: 12px;
+        margin-right: 393px;
+        padding: 4px;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    section .p{
+        background: white;
+        height: 12px;
+        margin-right: 410px;
+        padding: 4px;
+        border-radius: 10px 10px 0px 0px;
+    }
+
 </style>
 </head>
 <body>
@@ -152,9 +172,9 @@
                 
                         <input type="text" name="nome" id="nome" required placeholder="Nome:">
             
-                        <input type="date" name="data_entrega" id="data_entrega" required placeholder="Data de Entrega:">
-            
-                        <input type="date" name="data_afastamento" id="data_afastamento" required placeholder="Data de Afastamento:">
+                        <p class="p">data do inicio</p><input class="data" type="date" name="data_entrega" id="data_entrega" required placeholder="Data de Entrega:">
+                        
+                        <p>data do termino</p><input class="data" type="date" name="data_afastamento" id="data_afastamento" required placeholder="Data de Afastamento:">
                 
                         <input type="text" name="periodo" id="periodo" required placeholder="Período">
                         
@@ -189,7 +209,7 @@
                         </select>
                         
                         <div class="fin">
-                            <button>Voltar</button>
+                            <button><a href="/">Voltar</a></button>
                             <div class="btn-enviar">
                                 <label for="foto_afastamento" class="botao-arquivo">Escolher arquivo</label>
                             </div>
