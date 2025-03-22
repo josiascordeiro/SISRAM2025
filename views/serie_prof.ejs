@@ -87,6 +87,94 @@
         padding: 15px;
     }
 
+    /* Media queries for responsiveness */
+    @media (max-width: 1024px) {
+        section {
+            width: 35rem;
+        }
+        
+        section .btn input {
+            width: 35rem;
+        }
+        
+        h3 {
+            font-size: 4rem;
+            margin-top: 80px;
+        }
+        
+        header li a {
+            margin: 40px;
+            font-size: 1.3rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        section {
+            width: 25rem;
+        }
+        
+        section .btn input {
+            width: 25rem;
+        }
+        
+        h3 {
+            font-size: 3rem;
+            margin-top: 60px;
+        }
+        
+        header li a {
+            margin: 20px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            font-size: 1.3rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .menu ul {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header .menu {
+            height: auto;
+            padding: 10px 0;
+        }
+        
+        header li a {
+            margin: 10px;
+            font-size: 1rem;
+        }
+        
+        section {
+            width: 18rem;
+        }
+        
+        section .btn input {
+            width: 18rem;
+            padding: 0.8rem;
+        }
+        
+        select {
+            width: 18rem;
+            padding: 0.8rem;
+        }
+        
+        h3 {
+            font-size: 2rem;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        footer {
+            position: relative;
+            font-size: 0.9rem;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    }
 </style>
 </head>
 <body>
