@@ -75,7 +75,62 @@
         color: aliceblue;
         padding: 15px;
     }
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+        header a {
+            margin: 20px;
+            font-size: 1.2rem;
+        }
 
+        section .titulo h2 {
+            font-size: 2rem;
+        }
+
+        section .button input {
+            width: 20rem;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header {
+            height: auto;
+            padding: 10px 0;
+        }
+
+        header div {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header a {
+            margin: 10px;
+            font-size: 1rem;
+        }
+
+        section .titulo h2 {
+            font-size: 1.8rem;
+        }
+
+        section .button input {
+            width: 15rem;
+            font-size: 1rem;
+        }
+
+        footer {
+            position: relative;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        .body-s {
+            min-height: 70vh;
+        }
+    }
 </style>
   <title>SISRAM</title> 
 </head>
