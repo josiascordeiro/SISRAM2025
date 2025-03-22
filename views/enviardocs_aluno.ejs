@@ -338,10 +338,44 @@
                       <div class="btn-enviar">
                         <label for="foto_afastamento" style="display: flex; align-items: center; cursor: pointer; text-align: center; padding: 10px;">
                           Selecionar Arquivo
-                          <input class="arquivo" type="file" name="foto_afastamento" id="foto_afastamento" required>
+                          <input class="arquivo" type="file" name="foto_afastamento" id="foto_afastamento" required accept="image/jpeg,image/png,application/pdf" onchange="validateFile(this)">
                         </label>
                       </div>
-<br>
+                      
+                      <!-- Add this script at the bottom of the body -->
+                      <script>
+                        function validateFile(input) {
+                          const file = input.files[0];
+                          const fileSize = file.size / 1024 / 1024; // in MB
+                          const allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+                          const fileExtension = file.name.split('.').pop().toLowerCase();
+                          
+                          // Check file size (limit to 5MB)
+                          if (fileSize > 5) {
+                            alert('O arquivo é muito grande. O tamanho máximo permitido é 5MB.');
+                            input.value = '';
+                            return false;
+                          }
+                          
+                          // Check file extension
+                          if (!allowedExtensions.includes(fileExtension)) {
+                            alert('Tipo de arquivo não permitido. Por favor, envie apenas imagens (JPG, PNG) ou documentos PDF.');
+                            input.value = '';
+                            return false;
+                          }
+                          
+                          return true;
+                        }
+                        
+                        // Add form validation
+                        document.getElementById('atestadoForm').addEventListener('submit', function(event) {
+                          const fileInput = document.getElementById('foto_afastamento');
+                          if (!validateFile(fileInput)) {
+                            event.preventDefault();
+                          }
+                        });
+                      </script>
+                      <br>
                             <button type="submit">Enviar</button>
                         </div>
                     </section>
