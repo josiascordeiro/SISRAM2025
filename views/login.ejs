@@ -122,6 +122,90 @@ footer {
   padding: 15px;
 }
 
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+  body .conten {
+    width: 70%;
+  }
+  
+  .login-form button, .btn-voltar button {
+    width: 400px;
+  }
+  
+  .login-form h3 {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header a {
+    margin: 20px;
+    font-size: 1.2rem;
+  }
+  
+  body .conten {
+    width: 80%;
+  }
+  
+  .login-form h3 {
+    font-size: 3rem;
+  }
+  
+  .login-form button, .btn-voltar button {
+    width: 300px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  footer {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    height: auto;
+    padding: 10px 0;
+  }
+  
+  header div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  header a {
+    margin: 10px;
+    font-size: 1rem;
+  }
+  
+  body .conten {
+    width: 90%;
+    min-height: 70vh;
+  }
+  
+  .login-form h3 {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .login-form button, .btn-voltar button {
+    width: 250px;
+    height: 45px;
+    font-size: 1.2rem;
+    margin-top: 5rem;
+  }
+  
+  .btn-voltar button {
+    margin-top: 10px;
+  }
+  
+  footer {
+    position: relative;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
 </style>
 
 </head>
