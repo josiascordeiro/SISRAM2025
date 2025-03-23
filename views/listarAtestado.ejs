@@ -49,23 +49,54 @@
         
         @media (max-width: 768px) {
             h1 {
-                font-size: 32px;
+                font-size: 28px;
+                margin: 5px 0;
             }
             
             p {
                 font-size: 16px;
+                margin: 5px 0;
             }
             
             table {
                 font-size: 12px;
-                width: 100%;
-                max-width: 100%;
-                table-layout: fixed;
+                width: 100vw;
+                margin-left: -10px;
+                margin-right: -10px;
             }
             
             img {
                 max-width: 80px !important;
             }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+                margin: 3px 0;
+            }
+            
+            p {
+                font-size: 14px;
+                margin: 3px 0;
+            }
+            
+            table {
+                font-size: 10px;
+                width: 100vw;
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+            
+            th, td {
+                padding: 2px 1px;
+                white-space: nowrap;
+            }
+            
+            img {
+                max-width: 50px !important;
+            }
+        }
             
             .table-container {
                 width: 100%;
