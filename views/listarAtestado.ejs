@@ -58,16 +58,19 @@
             
             table {
                 font-size: 12px;
+                width: 100%;
             }
             
             img {
                 max-width: 80px !important;
             }
             
-            /* Create a scrollable table container */
+            /* Melhorar a tabela para dispositivos móveis */
             .table-container {
                 width: 100%;
                 overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin-bottom: 15px;
             }
             
             button {
@@ -78,24 +81,39 @@
         
         @media (max-width: 480px) {
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+                margin-top: 10px;
             }
             
             p {
                 font-size: 14px;
+                margin-bottom: 5px;
             }
             
             table {
                 font-size: 10px;
             }
             
+            th, td {
+                padding: 4px 2px;
+                white-space: nowrap;
+            }
+            
             img {
-                max-width: 60px !important;
+                max-width: 50px !important;
             }
             
             button {
                 padding: 6px 10px;
                 font-size: 12px;
+                display: inline-block;
+                margin: 5px;
+            }
+            
+            /* Ajustar o botão de voltar */
+            button[style="margin-top: 15px;"] {
+                margin-top: 10px !important;
+                margin-bottom: 20px;
             }
         }
     </style>
