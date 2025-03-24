@@ -29,7 +29,13 @@ console.log('Expected path for database.js:', path.resolve(__dirname, '../databa
 
 // Configuração do multer para upload de arquivos
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    limits: {
+        fileSize: 3 * 1024 * 1024, // Reduzido para 3MB
+        files: 1 // Apenas um arquivo por vez
+    }
+});
 
 // Rota GET para a página inicial
 router.get('/', function(req, res, next) {
@@ -366,15 +372,25 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         }
         
         // Verificar tamanho do arquivo
-        if (req.file.size > 5 * 1024 * 1024) { // 5MB limit
+        if (req.file.size > 3 * 1024 * 1024) { // Reduzido para 3MB
             console.log('Arquivo muito grande:', req.file.size);
             return res.status(400).render('error', {
                 title: 'Erro no Upload',
-                message: 'O arquivo é muito grande. O tamanho máximo permitido é 5MB.'
+                message: 'O arquivo é muito grande. O tamanho máximo permitido é 3MB.'
             });
         }
         
-        console.log('Arquivo recebido:', req.file.originalname);
+        // Verificar tipo de arquivo
+        const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (!allowedMimeTypes.includes(req.file.mimetype)) {
+            console.log('Tipo de arquivo inválido:', req.file.mimetype);
+            return res.status(400).render('error', {
+                title: 'Erro no Upload',
+                message: 'Tipo de arquivo inválido. Apenas imagens JPEG, PNG e documentos PDF são permitidos.'
+            });
+        }
+        
+        console.log('Arquivo recebido:', req.file.originalname, 'Tamanho:', req.file.size, 'Tipo:', req.file.mimetype);
         
         // Moderar a imagem com melhor tratamento de erros
         let moderationResult;
