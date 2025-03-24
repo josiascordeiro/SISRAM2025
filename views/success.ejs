@@ -35,6 +35,28 @@
             margin-bottom: 2rem;
         }
         
+        .status {
+            font-size: 1.4rem;
+            margin: 1.5rem 0;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+        }
+        
+        .status.aprovado {
+            background-color: rgba(0, 128, 0, 0.3);
+            border: 1px solid green;
+        }
+        
+        .status.rejeitado {
+            background-color: rgba(255, 0, 0, 0.3);
+            border: 1px solid red;
+        }
+        
+        .status.pendente {
+            background-color: rgba(255, 165, 0, 0.3);
+            border: 1px solid orange;
+        }
+        
         .btn {
             background-color: white;
             color: #020520;
@@ -54,7 +76,16 @@
 <body>
     <div class="container">
         <h1>Documento Enviado com Sucesso!</h1>
-        <p>Seu documento foi enviado e está em processo de moderação.</p>
+        
+        <% if (moderationStatus) { %>
+            <div class="status <%= moderationStatus.toLowerCase() === 'aprovado' ? 'aprovado' : (moderationStatus.toLowerCase() === 'rejeitado' ? 'rejeitado' : 'pendente') %>">
+                Status da Moderação: <%= moderationStatus %>
+            </div>
+            <p><%= moderationMessage %></p>
+        <% } else { %>
+            <p>Seu documento foi enviado e está em processo de moderação.</p>
+        <% } %>
+        
         <a href="/" class="btn">Voltar para a Página Inicial</a>
     </div>
 </body>
