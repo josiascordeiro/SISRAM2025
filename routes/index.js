@@ -348,30 +348,47 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         const moderationResult = await moderateImageBuffer(req.file.buffer);
         console.log('Resultado da moderação:', moderationResult);
         
-        // Salvar a imagem no banco de dados
+        // Verificar se a imagem foi aprovada
+        if (!moderationResult.isAppropriate) {
+            console.log('Imagem contém conteúdo impróprio');
+            return res.status(400).json({
+                status: 'Rejeitado',
+                message: moderationResult.message
+            });
+        }
+        
+        // Obter dados do formulário
+        const { matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma } = req.body;
+        
+        console.log('Inserindo no banco de dados...');
         const query = `
-          INSERT INTO atestados (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO atestados 
+            (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
         
         // Executar a query
         connection.query(
-          query,
-          [matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, req.file.buffer, moderationResult.status],
-          function(error, results, fields) {
-            if (error) {
-              console.error('Erro ao inserir no banco de dados:', error);
-              return res.status(500).send('Erro ao salvar o atestado');
+            query,
+            [matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, req.file.buffer, moderationResult.status],
+            function(error, results, fields) {
+                if (error) {
+                    console.error('Erro ao inserir no banco de dados:', error);
+                    return res.status(500).send('Erro ao salvar o atestado');
+                }
+                
+                console.log('Documento inserido com sucesso');
+                res.render('success', { 
+                    title: 'Documento Enviado com Sucesso',
+                    moderationStatus: moderationResult.status,
+                    moderationMessage: moderationResult.message
+                });
             }
-            
-            // Redirecionar para a página de sucesso
-            res.redirect('/success');
-          }
         );
-      } catch (error) {
+    } catch (error) {
         console.error('Erro no upload:', error);
         res.status(500).send('Erro ao processar o upload');
-      }
+    }
 });
 
 // Rota GET para listar a função listarAtestado
