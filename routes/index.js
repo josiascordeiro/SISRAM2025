@@ -328,7 +328,12 @@ router.get('/tresBmm', async function (req, res) {
 
 // Rota GET para exibir o formulário
 router.get('/enviardocs_aluno', (req, res) => {
-  res.render('enviardocs_aluno');
+  try {
+    res.render('enviardocs_aluno', { title: 'Enviar Documentos' });
+  } catch (error) {
+    console.error('Erro ao renderizar enviardocs_aluno:', error);
+    res.status(500).send('Erro ao carregar a página');
+  }
 });
 
 // Rota POST para enviar os dados do aluno
