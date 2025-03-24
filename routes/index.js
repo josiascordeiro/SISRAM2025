@@ -373,7 +373,7 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         
         console.log('Inserindo no banco de dados...');
         const query = `
-            INSERT INTO atestados 
+            INSERT INTO enviar_atestado 
             (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
