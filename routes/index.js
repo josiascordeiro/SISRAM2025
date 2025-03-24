@@ -359,22 +359,39 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         
         if (!req.file) {
             console.log('Nenhum arquivo recebido');
-            return res.status(400).send('Nenhum arquivo recebido');
+            return res.status(400).render('error', {
+                title: 'Erro no Upload',
+                message: 'Nenhum arquivo recebido'
+            });
         }
         
         console.log('Arquivo recebido:', req.file.originalname);
         
-        // Moderar a imagem
-        console.log('Iniciando moderação...');
-        const moderationResult = await moderateImageBuffer(req.file.buffer);
-        console.log('Resultado da moderação:', moderationResult);
+        // Moderar a imagem com melhor tratamento de erros
+        let moderationResult;
+        try {
+            console.log('Iniciando moderação...');
+            moderationResult = await moderateImageBuffer(req.file.buffer);
+            console.log('Resultado da moderação:', moderationResult);
+            
+            // Verificar se a resposta de moderação é válida
+            if (!moderationResult || typeof moderationResult.isAppropriate === 'undefined') {
+                throw new Error('Resposta de moderação inválida');
+            }
+        } catch (moderationError) {
+            console.error('Erro durante a moderação:', moderationError);
+            return res.status(500).render('error', {
+                title: 'Erro na Moderação',
+                message: 'Ocorreu um erro ao processar a imagem'
+            });
+        }
         
         // Verificar se a imagem foi aprovada
         if (!moderationResult.isAppropriate) {
             console.log('Imagem contém conteúdo impróprio');
-            return res.status(400).json({
-                status: 'Rejeitado',
-                message: moderationResult.message
+            return res.status(400).render('error', {
+                title: 'Conteúdo Impróprio',
+                message: moderationResult.message || 'A imagem contém conteúdo impróprio'
             });
         }
         
