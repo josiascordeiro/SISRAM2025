@@ -18,14 +18,18 @@ async function moderateImageBuffer(imageBuffer) {
             filename: 'image.jpg',
             contentType: 'image/jpeg',
         });
-        formData.append('models', 'nudity-2.1,weapon,alcohol,recreational_drug,medical,quality,offensive-2.0,faces,scam,text-content,face-attributes');
+        formData.append('models', 'nudity-2.1,weapon,alcohol,recreational_drug,medical,quality,offensive-2.0');
         formData.append('api_user', API_USER);
         formData.append('api_secret', API_SECRET);
 
+        console.log('Enviando imagem para moderação...');
+        
         // Enviar para a API
         const response = await axios.post('https://api.sightengine.com/1.0/check.json', formData, {
             headers: formData.getHeaders()
         });
+        
+        console.log('Resposta da API recebida:', JSON.stringify(response.data, null, 2));
         
         // Processar o resultado
         const result = response.data;
@@ -34,6 +38,8 @@ async function moderateImageBuffer(imageBuffer) {
         const nudityScore = result.nudity?.raw || 0;
         const offensiveScore = result.offensive?.prob || 0;
         const weaponScore = result.weapon?.prob || 0;
+        
+        console.log(`Scores: nudity=${nudityScore}, offensive=${offensiveScore}, weapon=${weaponScore}`);
         
         // Determinar se a imagem é apropriada (ajuste os limiares conforme necessário)
         const isAppropriate = nudityScore < 0.4 && offensiveScore < 0.4 && weaponScore < 0.4;
@@ -48,12 +54,15 @@ async function moderateImageBuffer(imageBuffer) {
             message: isAppropriate ? 'Imagem apropriada' : 'Possível conteúdo impróprio detectado'
         };
     } catch (error) {
-        console.error('Erro ao moderar imagem:', error);
+        console.error('Erro ao moderar imagem:', error.message);
+        if (error.response) {
+            console.error('Detalhes do erro:', JSON.stringify(error.response.data, null, 2));
+        }
         // Em caso de erro, permitir a imagem mas marcar como não verificada
         return {
             isAppropriate: true,
             status: 'Não verificado',
-            message: 'Erro na verificação da imagem'
+            message: 'Erro na verificação da imagem: ' + error.message
         };
     }
 }
