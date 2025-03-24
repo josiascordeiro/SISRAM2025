@@ -477,17 +477,35 @@ router.get('/success', (req, res) => {
         const status = req.query.status || 'approved';
         const message = req.query.message || 'Documento enviado com sucesso!';
         
+        // Verificar se o template success existe, caso contrário usar uma página alternativa
         res.render('success', { 
             title: 'Envio Bem-Sucedido', 
             status: status,
             message: message
+        }, function(err, html) {
+            if (err) {
+                console.log('Template success não encontrado, redirecionando para conclusao');
+                return res.render('conclusao', { 
+                    title: 'Envio Bem-Sucedido',
+                    message: 'Atestado recebido com sucesso!'
+                });
+            }
+            res.send(html);
         });
     } catch (error) {
         console.error('Erro ao renderizar página de sucesso:', error);
-        res.status(500).render('error', {
-            title: 'Erro',
-            message: 'Ocorreu um erro ao exibir a página de sucesso.'
-        });
+        // Tentar renderizar a página de conclusão como fallback
+        try {
+            res.render('conclusao', { 
+                title: 'Envio Bem-Sucedido',
+                message: 'Atestado recebido com sucesso!'
+            });
+        } catch (fallbackError) {
+            res.status(500).render('error', {
+                title: 'Erro',
+                message: 'Ocorreu um erro ao exibir a página de sucesso.'
+            });
+        }
     }
 });
 
