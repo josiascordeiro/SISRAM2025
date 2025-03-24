@@ -361,7 +361,16 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
             console.log('Nenhum arquivo recebido');
             return res.status(400).render('error', {
                 title: 'Erro no Upload',
-                message: 'Nenhum arquivo recebido'
+                message: 'Nenhum arquivo recebido. Por favor, selecione um arquivo para enviar.'
+            });
+        }
+        
+        // Verificar tamanho do arquivo
+        if (req.file.size > 5 * 1024 * 1024) { // 5MB limit
+            console.log('Arquivo muito grande:', req.file.size);
+            return res.status(400).render('error', {
+                title: 'Erro no Upload',
+                message: 'O arquivo é muito grande. O tamanho máximo permitido é 5MB.'
             });
         }
         
@@ -441,7 +450,27 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         console.error('Erro no upload:', error);
         res.status(500).render('error', { 
             title: 'Erro no Upload',
-            message: 'Ocorreu um erro ao processar o upload'
+            message: 'Ocorreu um erro ao processar o upload: ' + error.message
+        });
+    }
+});
+
+// Adicionar rota de sucesso que está faltando
+router.get('/success', (req, res) => {
+    try {
+        const status = req.query.status || 'approved';
+        const message = req.query.message || 'Documento enviado com sucesso!';
+        
+        res.render('success', { 
+            title: 'Envio Bem-Sucedido', 
+            status: status,
+            message: message
+        });
+    } catch (error) {
+        console.error('Erro ao renderizar página de sucesso:', error);
+        res.status(500).render('error', {
+            title: 'Erro',
+            message: 'Ocorreu um erro ao exibir a página de sucesso.'
         });
     }
 });
