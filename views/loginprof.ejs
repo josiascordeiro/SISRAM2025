@@ -1,191 +1,191 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/loginprof.css">
-<link rel="icon" type="image/png" href="/logo SISRAM_20250323_112139_0000.png">
-<title>SISRAM</title>
-<style>
-*{
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    font-family: "Chakra Petch", sans-serif;
-}
-
-body{
-    background: #020520;
-}
-
-header{
-    background: aliceblue;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-header ul{
-    display: flex;
-}
-
-header li a{
-    color: black;
-    font-size: 1.5rem;
-    margin: 80px;
-}
-
-.body-s{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-}
-
-.title{
-    margin-top: 8rem;
-    font-size: 60px;
-    letter-spacing: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: aliceblue;
-}
-
-section .input{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5rem;
-}
-
-section input{
-    border: none;
-    width: 40rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    border-radius: 30px;
-    color: #09368f;
-}
-
-section button{
-    border: none;
-    width: 41rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    font-size: 1.4rem;
-    border-radius: 30px;
-    color: #09368f;
-}
-
-.btn-enviar{
-    width: 42rem;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 1.5rem;
-    text-align: center;
-    color: aliceblue;
-    padding: 15px;
-}
-
-/* Media queries for responsiveness */
-@media (max-width: 1024px) {
-    section input, section button {
-        width: 30rem;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/loginprof.css">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <title>SISRAM</title>
+    <style>
+    *{
+        margin: 0;
+        text-decoration: none;
+        list-style: none;
+        font-family: "Chakra Petch", sans-serif;
     }
-    
-    .btn-enviar {
-        width: 32rem;
-    }
-    
-    .title {
-        font-size: 50px;
-    }
-    
-    header li a {
-        margin: 40px;
-        font-size: 1.3rem;
-    }
-}
 
-@media (max-width: 768px) {
-    section input, section button {
-        width: 20rem;
+    body{
+        background: #020520;
     }
-    
-    .btn-enviar {
-        width: 22rem;
-    }
-    
-    .title {
-        font-size: 40px;
-        margin-top: 6rem;
-    }
-    
-    header li a {
-        margin: 20px;
-        font-size: 1.2rem;
-    }
-    
-    footer {
-        font-size: 1.2rem;
-    }
-}
 
-@media (max-width: 480px) {
-    header ul {
+    header{
+        background: aliceblue;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header ul{
+        display: flex;
+    }
+
+    header li a{
+        color: black;
+        font-size: 1.5rem;
+        margin: 80px;
+    }
+
+    .body-s{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh;
+    }
+
+    .title{
+        margin-top: 8rem;
+        font-size: 60px;
+        letter-spacing: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: aliceblue;
+    }
+
+    section .input{
+        display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        margin-top: 5rem;
     }
-    
-    header {
-        height: auto;
-        padding: 10px 0;
+
+    section input{
+        border: none;
+        width: 40rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        border-radius: 30px;
+        color: #09368f;
     }
-    
-    header li a {
-        margin: 10px;
-        font-size: 1rem;
+
+    section button{
+        border: none;
+        width: 41rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+        border-radius: 30px;
+        color: #09368f;
     }
-    
-    .title {
-        font-size: 30px;
-        margin-top: 4rem;
+
+    .btn-enviar{
+        width: 42rem;
     }
-    
-    section input, section button {
-        width: 15rem;
-        padding: 0.8rem;
-        font-size: 1.2rem;
-    }
-    
-    .btn-enviar {
-        width: 16.6rem;
-    }
-    
-    section .input {
-        margin-top: 3rem;
-    }
-    
-    .body-s {
-        min-height: 40vh;
-    }
-    
+
     footer {
-        position: relative;
-        font-size: 0.9rem;
-        padding: 10px;
-        margin-top: 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 1.5rem;
+        text-align: center;
+        color: aliceblue;
+        padding: 15px;
     }
-}
-</style>
+
+    /* Media queries for responsiveness */
+    @media (max-width: 1024px) {
+        section input, section button {
+            width: 30rem;
+        }
+        
+        .btn-enviar {
+            width: 32rem;
+        }
+        
+        .title {
+            font-size: 50px;
+        }
+        
+        header li a {
+            margin: 40px;
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        section input, section button {
+            width: 20rem;
+        }
+        
+        .btn-enviar {
+            width: 22rem;
+        }
+        
+        .title {
+            font-size: 40px;
+            margin-top: 6rem;
+        }
+        
+        header li a {
+            margin: 20px;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header ul {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            height: auto;
+            padding: 10px 0;
+        }
+        
+        header li a {
+            margin: 10px;
+            font-size: 1rem;
+        }
+        
+        .title {
+            font-size: 30px;
+            margin-top: 4rem;
+        }
+        
+        section input, section button {
+            width: 15rem;
+            padding: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .btn-enviar {
+            width: 16.6rem;
+        }
+        
+        section .input {
+            margin-top: 3rem;
+        }
+        
+        .body-s {
+            min-height: 40vh;
+        }
+        
+        footer {
+            position: relative;
+            font-size: 0.9rem;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    }
+    </style>
 </head>
 <body>
     <header>

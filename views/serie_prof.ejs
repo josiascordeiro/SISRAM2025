@@ -1,182 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="/logo SISRAM_20250323_112139_0000.png">
-<title>ETE-Ginásio Pernambucano</title>
-<style>
-    *{
-        margin: 0;
-        text-decoration: none;
-        list-style: none;
-        font-family: "Chakra Petch", sans-serif; 
-    }
-
-    body{
-        background: #020520;
-    }
-
-    header .menu{
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 80px;
-    }
-
-    .menu ul{
-        display: flex;
-        justify-content: center;
-    }
-
-    header li a{
-    color: black;
-    font-size: 1.5rem;
-    margin: 80px;
-    }
-
-    section{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 40rem;
-        margin: 0 auto;
-        min-height: 60vh;
-    }
-
-    select{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-        border-radius: 3rem;
-        padding: 1rem;
-    }
-
-    section .btn{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    section .btn input{
-        border: none;
-        width: 40rem;
-        padding: 1rem;
-        border-radius: 3rem;
-        margin-top: 10px;
-    }
-
-    h3{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 5rem;
-        margin-top: 100px;
-    }
-
-    footer{
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        font-size: 1.7rem;
-        text-align: center;
-        color: aliceblue;
-        padding: 15px;
-    }
-
-    /* Media queries for responsiveness */
-    @media (max-width: 1024px) {
-        section {
-            width: 35rem;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/logo.png">
+    <title>ETE-Ginásio Pernambucano</title>
+    <style>
+        *{
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            font-family: "Chakra Petch", sans-serif; 
         }
-        
-        section .btn input {
-            width: 35rem;
+
+        body{
+            background: #020520;
         }
-        
-        h3 {
-            font-size: 4rem;
-            margin-top: 80px;
+
+        header .menu{
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
         }
-        
-        header li a {
-            margin: 40px;
-            font-size: 1.3rem;
+
+        .menu ul{
+            display: flex;
+            justify-content: center;
         }
-    }
-    
-    @media (max-width: 768px) {
-        section {
-            width: 25rem;
+
+        header li a{
+        color: black;
+        font-size: 1.5rem;
+        margin: 80px;
         }
-        
-        section .btn input {
-            width: 25rem;
-        }
-        
-        h3 {
-            font-size: 3rem;
-            margin-top: 60px;
-        }
-        
-        header li a {
-            margin: 20px;
-            font-size: 1.2rem;
-        }
-        
-        footer {
-            font-size: 1.3rem;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .menu ul {
+
+        section{
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+            width: 40rem;
+            margin: 0 auto;
+            min-height: 60vh;
+        }
+
+        select{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            border-radius: 3rem;
+            padding: 1rem;
+        }
+
+        section .btn{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
         }
-        
-        header .menu {
-            height: auto;
-            padding: 10px 0;
+
+        section .btn input{
+            border: none;
+            width: 40rem;
+            padding: 1rem;
+            border-radius: 3rem;
+            margin-top: 10px;
         }
-        
-        header li a {
-            margin: 10px;
-            font-size: 1rem;
+
+        h3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 5rem;
+            margin-top: 100px;
         }
-        
-        section {
-            width: 18rem;
-        }
-        
-        section .btn input {
-            width: 18rem;
-            padding: 0.8rem;
-        }
-        
-        select {
-            width: 18rem;
-            padding: 0.8rem;
-        }
-        
-        h3 {
-            font-size: 2rem;
-            margin-top: 40px;
+
+        footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 1.7rem;
             text-align: center;
+            color: aliceblue;
+            padding: 15px;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1024px) {
+            section {
+                width: 35rem;
+            }
+            
+            section .btn input {
+                width: 35rem;
+            }
+            
+            h3 {
+                font-size: 4rem;
+                margin-top: 80px;
+            }
+            
+            header li a {
+                margin: 40px;
+                font-size: 1.3rem;
+            }
         }
         
-        footer {
-            position: relative;
-            font-size: 0.9rem;
-            padding: 10px;
-            margin-top: 20px;
+        @media (max-width: 768px) {
+            section {
+                width: 25rem;
+            }
+            
+            section .btn input {
+                width: 25rem;
+            }
+            
+            h3 {
+                font-size: 3rem;
+                margin-top: 60px;
+            }
+            
+            header li a {
+                margin: 20px;
+                font-size: 1.2rem;
+            }
+            
+            footer {
+                font-size: 1.3rem;
+            }
         }
-    }
-</style>
+        
+        @media (max-width: 480px) {
+            .menu ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            header .menu {
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            header li a {
+                margin: 10px;
+                font-size: 1rem;
+            }
+            
+            section {
+                width: 18rem;
+            }
+            
+            section .btn input {
+                width: 18rem;
+                padding: 0.8rem;
+            }
+            
+            select {
+                width: 18rem;
+                padding: 0.8rem;
+            }
+            
+            h3 {
+                font-size: 2rem;
+                margin-top: 40px;
+                text-align: center;
+            }
+            
+            footer {
+                position: relative;
+                font-size: 0.9rem;
+                padding: 10px;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 <header>
