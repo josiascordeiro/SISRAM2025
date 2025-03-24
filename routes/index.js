@@ -360,6 +360,17 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
         // Obter dados do formulário
         const { matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma } = req.body;
         
+        console.log('Dados do formulário:', {
+            matricula,
+            nome,
+            data_entrega,
+            data_afastamento,
+            periodo,
+            motivo,
+            turma,
+            status: moderationResult.status
+        });
+        
         console.log('Inserindo no banco de dados...');
         const query = `
             INSERT INTO atestados 
@@ -377,12 +388,19 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
                     return res.status(500).send('Erro ao salvar o atestado');
                 }
                 
-                console.log('Documento inserido com sucesso');
-                res.render('success', { 
-                    title: 'Documento Enviado com Sucesso',
-                    moderationStatus: moderationResult.status,
-                    moderationMessage: moderationResult.message
-                });
+                console.log('Documento inserido com sucesso. ID:', results.insertId);
+                
+                try {
+                    console.log('Renderizando página de sucesso...');
+                    res.render('success', { 
+                        title: 'Documento Enviado com Sucesso',
+                        moderationStatus: moderationResult.status,
+                        moderationMessage: moderationResult.message
+                    });
+                } catch (renderError) {
+                    console.error('Erro ao renderizar a página de sucesso:', renderError);
+                    res.status(500).send('Erro ao exibir a página de sucesso');
+                }
             }
         );
     } catch (error) {
