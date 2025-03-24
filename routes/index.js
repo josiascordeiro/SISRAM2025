@@ -395,54 +395,64 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
                 
                 console.log('Documento inserido com sucesso. ID:', results.insertId);
                 
-                try {
-                    console.log('Renderizando página de sucesso...');
-                    res.render('success', { 
-                        title: 'Documento Enviado com Sucesso',
-                        moderationStatus: moderationResult.status,
-                        moderationMessage: moderationResult.message
+                // Redirect to success page with query parameters
+                return res.redirect(`/success?status=${moderationResult.status}&message=${encodeURIComponent(moderationResult.message)}`);
+                
+                } catch (error) {
+                    console.error('Erro no upload:', error);
+                    res.status(500).render('error', { 
+                        title: 'Erro no Upload',
+                        message: 'Ocorreu um erro ao processar o upload'
                     });
-                } catch (renderError) {
-                    console.error('Erro ao renderizar a página de sucesso:', renderError);
-                    res.status(500).send('Erro ao exibir a página de sucesso');
                 }
+            });
+        // Add this new route for success page
+        router.get('/success', (req, res) => {
+            try {
+                const { status, message } = req.query;
+                res.render('success', {
+                    title: 'Documento Enviado com Sucesso',
+                    moderationStatus: status,
+                    moderationMessage: decodeURIComponent(message)
+                });
+            } catch (error) {
+                console.error('Erro ao renderizar página de sucesso:', error);
+                res.status(500).render('error', {
+                    title: 'Erro',
+                    message: 'Ocorreu um erro ao exibir a página de sucesso'
+                });
             }
-        );
-    } catch (error) {
-        console.error('Erro no upload:', error);
-        res.status(500).send('Erro ao processar o upload');
-    }
-});
-
-// Rota GET para listar a função listarAtestado
-router.get('/listarAtestado', async (req, res) => { // Modificado: Adicionada a rota para listar atestados
-  try {
-    console.log('Requisição para listar atestados recebida'); // Log de depuração
-    const atestados = await listarAtestado();
-    console.log('Atestados encontrados:', atestados); // Log de depuração
-    res.render('listarAtestado', { title: 'Listagem de Atestados', atestados: atestados });
-  } catch (error) {
-    console.error('Erro ao listar atestados:', error);
-    res.status(500).send('Erro ao listar atestados: ' + error.message);
-  }
-});
-
-// Rota GET para obter a imagem do atestado
-router.get('/imagem/:id', async (req, res) => { // Modificado: Adicionada a rota para obter a imagem do atestado
-  try {
-    console.log('Requisição para obter imagem recebida. ID:', req.params.id); // Log de depuração
-    const atestado = await obterAtestadoPorId(req.params.id);
-    if (!atestado) {
-      console.log('Atestado não encontrado para o ID:', req.params.id); // Log de depuração
-      return res.status(404).send('Atestado não encontrado');
-    }
-    console.log('Atestado encontrado:', atestado); // Log de depuração
-    res.set('Content-Type', 'image/jpeg'); // Ajuste o tipo de conteúdo conforme necessário
-    res.send(atestado.foto_afastamento);
-  } catch (error) {
-    console.error('Erro ao obter atestado:', error);
-    res.status(500).send('Erro ao obter atestado: ' + error.message);
-  }
-});
-
-module.exports = router;
+        });
+        
+        // Rota GET para listar a função listarAtestado
+        router.get('/listarAtestado', async (req, res) => { // Modificado: Adicionada a rota para listar atestados
+          try {
+            console.log('Requisição para listar atestados recebida'); // Log de depuração
+            const atestados = await listarAtestado();
+            console.log('Atestados encontrados:', atestados); // Log de depuração
+            res.render('listarAtestado', { title: 'Listagem de Atestados', atestados: atestados });
+          } catch (error) {
+            console.error('Erro ao listar atestados:', error);
+            res.status(500).send('Erro ao listar atestados: ' + error.message);
+          }
+        });
+        
+        // Rota GET para obter a imagem do atestado
+        router.get('/imagem/:id', async (req, res) => { // Modificado: Adicionada a rota para obter a imagem do atestado
+          try {
+            console.log('Requisição para obter imagem recebida. ID:', req.params.id); // Log de depuração
+            const atestado = await obterAtestadoPorId(req.params.id);
+            if (!atestado) {
+              console.log('Atestado não encontrado para o ID:', req.params.id); // Log de depuração
+              return res.status(404).send('Atestado não encontrado');
+            }
+            console.log('Atestado encontrado:', atestado); // Log de depuração
+            res.set('Content-Type', 'image/jpeg'); // Ajuste o tipo de conteúdo conforme necessário
+            res.send(atestado.foto_afastamento);
+          } catch (error) {
+            console.error('Erro ao obter atestado:', error);
+            res.status(500).send('Erro ao obter atestado: ' + error.message);
+          }
+        });
+        
+        module.exports = router;
