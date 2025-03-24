@@ -4,6 +4,22 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { enviarAtestado, listarAtestado, obterAtestadoPorId, doisAds, doisBds, doisAmm, doisBmm, umAds, umBds, umAmm, umBmm, tresAds, tresBds, tresAmm, tresBmm } = require('../database');
+const mysql = require('mysql2');
+const connection = mysql.createConnection({
+    host: process.env.MYSQL_HOST || 'gondola.proxy.rlwy.net',
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE || 'railway',
+    port: process.env.MYSQL_PORT || 31428
+});
+
+connection.connect(err => {
+    if (err) {
+        console.error('Erro ao conectar ao MySQL:', err);
+        process.exit(1);
+    }
+    console.log('Conectou no MySQL!');
+});
 // Adicione esta linha no topo do arquivo, após as outras importações
 const { moderateImageBuffer } = require('../services/imageModeration');
 
