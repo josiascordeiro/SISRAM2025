@@ -395,6 +395,18 @@ router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async functi
                 
                 console.log('Documento inserido com sucesso. ID:', results.insertId);
                 
+                try {
+                    console.log('Renderizando página de sucesso...');
+                    res.render('success', { 
+                        title: 'Documento Enviado com Sucesso',
+                        moderationStatus: moderationResult.status,
+                        moderationMessage: moderationResult.message
+                    });
+                } catch (renderError) {
+                    console.error('Erro ao renderizar a página de sucesso:', renderError);
+                    res.status(500).send('Erro ao exibir a página de sucesso');
+                }
+            }
                 // Redirect to success page with query parameters
                 return res.redirect(`/success?status=${moderationResult.status}&message=${encodeURIComponent(moderationResult.message)}`);
                 
