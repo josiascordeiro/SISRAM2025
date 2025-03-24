@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const { enviarAtestado, listarAtestado, obterAtestadoPorId, doisAds, doisBds, doisAmm, doisBmm, umAds, umBds, umAmm, umBmm, tresAds, tresBds, tresAmm, tresBmm } = require('../database');
+const { moderateImageBuffer } = require('../services/imageModeration');
 
 // Verificação do caminho atual do diretório
 console.log('Current directory:', __dirname);
@@ -330,24 +331,42 @@ router.get('/enviardocs_aluno', (req, res) => {
 });
 
 // Rota POST para enviar os dados do aluno
-router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async (req, res) => {
-  console.log('Arquivo recebido:', req.file);
-  const atestado = {
-    matricula: req.body.matricula,
-    nome: req.body.nome,
-    data_entrega: req.body.data_entrega,
-    data_afastamento: req.body.data_afastamento,
-    periodo: req.body.periodo,
-    foto_afastamento: req.file,
-    motivo: req.body.motivo,
-    turma: req.body.turma
-  };
-
+router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async function(req, res, next) {
   try {
-    await enviarAtestado(atestado);
-    res.send('Atestado inserido com sucesso!');
+    // Verificar se a imagem foi enviada
+    if (!req.file) {
+      return res.status(400).send('Nenhuma imagem enviada');
+    }
+    
+    // Obter dados do formulário
+    const { matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma } = req.body;
+    
+    // Moderar a imagem usando o buffer
+    const moderationResult = await moderateImageBuffer(req.file.buffer);
+    
+    // Salvar a imagem no banco de dados
+    const query = `
+      INSERT INTO atestados (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    
+    // Executar a query
+    connection.query(
+      query,
+      [matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, req.file.buffer, moderationResult.status],
+      function(error, results, fields) {
+        if (error) {
+          console.error('Erro ao inserir no banco de dados:', error);
+          return res.status(500).send('Erro ao salvar o atestado');
+        }
+        
+        // Redirecionar para a página de sucesso
+        res.redirect('/success');
+      }
+    );
   } catch (error) {
-    res.status(500).send('Erro ao inserir atestado: ' + error.message);
+    console.error('Erro no upload:', error);
+    res.status(500).send('Erro ao processar o upload');
   }
 });
 
