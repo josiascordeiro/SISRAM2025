@@ -333,42 +333,45 @@ router.get('/enviardocs_aluno', (req, res) => {
 
 // Rota POST para enviar os dados do aluno
 router.post('/enviardocs_aluno', upload.single('foto_afastamento'), async function(req, res, next) {
-  try {
-    // Verificar se a imagem foi enviada
-    if (!req.file) {
-      return res.status(400).send('Nenhuma imagem enviada');
-    }
-    
-    // Obter dados do formulário
-    const { matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma } = req.body;
-    
-    // Moderar a imagem usando o buffer
-    const moderationResult = await moderateImageBuffer(req.file.buffer);
-    
-    // Salvar a imagem no banco de dados
-    const query = `
-      INSERT INTO atestados (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    
-    // Executar a query
-    connection.query(
-      query,
-      [matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, req.file.buffer, moderationResult.status],
-      function(error, results, fields) {
-        if (error) {
-          console.error('Erro ao inserir no banco de dados:', error);
-          return res.status(500).send('Erro ao salvar o atestado');
+    try {
+        console.log('Recebendo upload de documento...');
+        
+        if (!req.file) {
+            console.log('Nenhum arquivo recebido');
+            return res.status(400).send('Nenhum arquivo recebido');
         }
         
-        // Redirecionar para a página de sucesso
-        res.redirect('/success');
+        console.log('Arquivo recebido:', req.file.originalname);
+        
+        // Moderar a imagem
+        console.log('Iniciando moderação...');
+        const moderationResult = await moderateImageBuffer(req.file.buffer);
+        console.log('Resultado da moderação:', moderationResult);
+        
+        // Salvar a imagem no banco de dados
+        const query = `
+          INSERT INTO atestados (matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, imagem, status_moderacao) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        
+        // Executar a query
+        connection.query(
+          query,
+          [matricula, nome, data_entrega, data_afastamento, periodo, motivo, turma, req.file.buffer, moderationResult.status],
+          function(error, results, fields) {
+            if (error) {
+              console.error('Erro ao inserir no banco de dados:', error);
+              return res.status(500).send('Erro ao salvar o atestado');
+            }
+            
+            // Redirecionar para a página de sucesso
+            res.redirect('/success');
+          }
+        );
+      } catch (error) {
+        console.error('Erro no upload:', error);
+        res.status(500).send('Erro ao processar o upload');
       }
-    );
-  } catch (error) {
-    console.error('Erro no upload:', error);
-    res.status(500).send('Erro ao processar o upload');
-  }
 });
 
 // Rota GET para listar a função listarAtestado

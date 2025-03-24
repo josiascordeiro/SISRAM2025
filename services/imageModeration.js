@@ -12,24 +12,32 @@ const API_SECRET = 'TGUd54QaC86537uRbx6sMnUsXrYRQzsq';
  */
 async function moderateImageBuffer(imageBuffer) {
     try {
-        // Criar form data para envio
+        console.log('Iniciando moderação de imagem...');
+        console.log('Tamanho do buffer:', imageBuffer.length);
+        
         const formData = new FormData();
         formData.append('media', imageBuffer, {
             filename: 'image.jpg',
             contentType: 'image/jpeg',
         });
-        formData.append('models', 'nudity-2.1,weapon,alcohol,recreational_drug,medical,quality,offensive-2.0');
+        formData.append('models', 'nudity-2.1,weapon,alcohol,recreational_drug,medical,quality,offensive-2.0,faces,scam,text-content,face-attributes');
         formData.append('api_user', API_USER);
         formData.append('api_secret', API_SECRET);
 
-        console.log('Enviando imagem para moderação...');
-        
-        // Enviar para a API
+        console.log('Enviando requisição para Sightengine...');
         const response = await axios.post('https://api.sightengine.com/1.0/check.json', formData, {
             headers: formData.getHeaders()
         });
         
-        console.log('Resposta da API recebida:', JSON.stringify(response.data, null, 2));
+        if (!response.data || !response.data.status) {
+            throw new Error('Resposta inválida da API Sightengine');
+        }
+        
+        if (response.data.status !== 'success') {
+            throw new Error(`Erro na API Sightengine: ${response.data.error?.message || 'Erro desconhecido'}`);
+        }
+        
+        console.log('Resposta recebida:', response.data);
         
         // Processar o resultado
         const result = response.data;
