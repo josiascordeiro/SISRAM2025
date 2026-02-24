@@ -2,15 +2,11 @@
 global.db = require('./database');
 var express = require('express');
 var app = express();
-const port = 3000;
 const path = require('path');
-const bodyParser = require('body-parser');
-const routes = require('./routes/index');
 
 
 
 var createError = require('http-errors');
-var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -49,11 +45,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//Rotas
-app.get('/1ads', function(req, res){
-  listar1ads.findAll().then(function(listar1ads){
-    res.sender('listar1ads', {listar1ads: listar1ads});
-  })
+// Rotas
+// health check
+app.get('/health', function(req, res){
+  res.status(200).send('OK');
 });
 
 

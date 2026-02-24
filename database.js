@@ -41,7 +41,8 @@ async function connect() {
     }
 }
 
-connect();
+// Não forçar conexão na importação; conectar sob demanda nas funções.
+// connect();
 
 // Função para obter atestado por ID
 async function obterAtestadoPorId(id) {
