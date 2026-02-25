@@ -1,12 +1,55 @@
+const path = require('path');
 const mysql = require('mysql2/promise');
+const sqlite3 = require('sqlite3');
+const { promisify } = require('util');
 
-async function connect() {
-    if (global.connection && global.connection.state !== 'disconnected') {
+const DB_DRIVER = (process.env.DB_DRIVER || 'sqlite').toLowerCase();
+const SQLITE_FILE = path.join(__dirname, 'local.db');
+
+async function connectSqlite() {
+    if (global.connection && global.connection.driver === 'sqlite') {
+        return global.connection;
+    }
+
+    const db = new sqlite3.Database(SQLITE_FILE);
+    const all = promisify(db.all).bind(db);
+    const run = promisify(db.run).bind(db);
+
+    await run(`CREATE TABLE IF NOT EXISTS enviar_atestado (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        matricula INTEGER,
+        nome TEXT,
+        data_entrega TEXT,
+        data_afastamento TEXT,
+        periodo INTEGER,
+        foto_afastamento BLOB,
+        motivo TEXT,
+        turma TEXT
+    );`);
+
+    const wrapper = {
+        driver: 'sqlite',
+        async query(sql, params = []) {
+            if (/^\s*select/i.test(sql)) {
+                const rows = await all(sql, params);
+                return [rows, []];
+            }
+            await run(sql, params);
+            return [[], []];
+        }
+    };
+
+    console.log('[db] Usando SQLite local em', SQLITE_FILE);
+    global.connection = wrapper;
+    return wrapper;
+}
+
+async function connectMysql() {
+    if (global.connection && global.connection.state !== 'disconnected' && global.connection.driver !== 'sqlite') {
         return global.connection;
     }
 
     try {
-        // Add debug logging
         console.log('MySQL Connection Config:', {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
@@ -22,13 +65,13 @@ async function connect() {
         });
 
         console.log('Conectou no MySQL!');
+        connection.driver = 'mysql';
         global.connection = connection;
 
-        // Adiciona um listener para reconectar em caso de erro
         connection.on('error', async (err) => {
             if (err.code === 'PROTOCOL_CONNECTION_LOST') {
                 console.error('Conexão perdida. Tentando reconectar...');
-                global.connection = await connect();
+                global.connection = await connectMysql();
             } else {
                 throw err;
             }
@@ -41,8 +84,9 @@ async function connect() {
     }
 }
 
-// Não forçar conexão na importação; conectar sob demanda nas funções.
-// connect();
+async function connect() {
+    return DB_DRIVER === 'mysql' ? connectMysql() : connectSqlite();
+}
 
 // Função para obter atestado por ID
 async function obterAtestadoPorId(id) {

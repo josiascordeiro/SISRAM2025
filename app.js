@@ -1,8 +1,18 @@
 
+require('dotenv').config();
 global.db = require('./database');
 var express = require('express');
 var app = express();
 const path = require('path');
+
+const securityBack = require('./security center/back/securityBack');
+const securityFront = require('./security center/front/securityFront');
+const securityUsers = require('./security center/users/securityUsers');
+const securityBridge = require('./security center/link/securityBridge');
+const securityDb = require('./security center/db/securityDb');
+const securityPerformance = require('./security center/performance/securityPerformance');
+const ipStore = require('./security center/shared/ipStore');
+const faviconPath = path.join(__dirname, 'public', 'logo.png');
 
 
 
@@ -19,6 +29,24 @@ var usersRouter = require('./routes/users');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('trust proxy', true);
+app.disable('x-powered-by');
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(faviconPath);
+});
+
+securityDb.runStartupChecks();
+
+// Cadeia de segurança centralizada
+app.use(ipStore.ipCapture('entry'));
+app.use(securityPerformance.measureResponse());
+app.use(securityBridge.enforceAllowedOrigins());
+app.use(securityBack.basicHardening());
+app.use(securityBack.rateLimitBack());
+app.use(securityUsers.guardSensitive());
+app.use(securityUsers.rateLimitAuth());
+app.use(securityFront.frontHeaders());
 
 app.use(logger('dev'));
 app.use(express.json());
