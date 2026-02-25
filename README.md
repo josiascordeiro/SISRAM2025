@@ -81,10 +81,10 @@ npm start
 3. `npm install && npm start`.
 
 ## Contatos (Instagram)
-- @ytallo_gabriel.dev — Ytallo Gabriel
-- @josiasjosiascordeiro — Josias Cordeiro
-- @garra_inc_technology — Startup Garra Inc Technology
-- @eteginasiopernambucano — Escola Técnica Estadual Ginásio Pernambucano
+- [Ytallo Gabriel (@ytallo_gabriel.dev)](https://instagram.com/ytallo_gabriel.dev)
+- [Josias Cordeiro (@josiasjosiascordeiro)](https://instagram.com/josiasjosiascordeiro)
+- [Startup Garra Inc Technology (@garra_inc_technology)](https://instagram.com/garra_inc_technology)
+- [Escola Técnica Estadual Ginásio Pernambucano (@eteginasiopernambucano)](https://instagram.com/eteginasiopernambucano)
 
 ## Licença
 Projeto acadêmico/educacional desenvolvido pela equipe da Garra inc Technology
